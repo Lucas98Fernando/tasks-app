@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "TasksApp",
+    "slug": "TasksApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
