@@ -1,29 +1,16 @@
-import { addDoc, collection } from "firebase/firestore/lite";
-import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { database } from "../../config/firebase";
-import { NavigationProp } from "@react-navigation/native";
+import React from "react";
+import {
+  ActivityIndicator,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import styles from "../../common/styles";
+import { useAddTask } from "../../hooks/useAddTask";
 
-interface Props {
-  navigation: NavigationProp<any, any>;
-}
-
-export function NewTask({ navigation }: Props) {
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState(false);
-
-  async function handleAddTask() {
-    try {
-      await addDoc(collection(database, "tasks"), {
-        description,
-        status,
-      });
-      navigation.navigate("Task");
-    } catch (error) {
-      console.log(error);
-    }
-  }
+export function NewTask() {
+  const { description, loading, setDescription, handleAddTask } = useAddTask();
 
   return (
     <View style={styles.container}>
@@ -35,7 +22,11 @@ export function NewTask({ navigation }: Props) {
         value={description}
       />
       <TouchableOpacity style={styles.button} onPress={handleAddTask}>
-        <Text style={styles.buttonText}>Salvar</Text>
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.buttonText}>Salvar</Text>
+        )}
       </TouchableOpacity>
     </View>
   );

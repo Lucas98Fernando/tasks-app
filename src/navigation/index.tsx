@@ -22,7 +22,7 @@ export default function Navigation() {
         <Stack.Screen
           name="DetailsTask"
           component={DetailsTask}
-          options={{ headerTintColor: "#219ebc", title: "Detalhes da tarefa" }}
+          options={{ headerTintColor: "#219ebc", title: "Atualizar tarefa" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

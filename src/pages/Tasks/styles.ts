@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "bold",
   },
+  noTasks: {
+    paddingLeft: 20,
+  },
 });
 
 export default styles;
