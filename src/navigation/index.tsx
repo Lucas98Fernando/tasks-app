@@ -12,17 +12,17 @@ export default function Navigation() {
         <Stack.Screen
           name="Task"
           component={Task}
-          options={{ headerTintColor: "#219ebc" }}
+          options={{ headerTintColor: "#219ebc", title: "Tarefas" }}
         />
         <Stack.Screen
           name="NewTask"
           component={NewTask}
-          options={{ headerTintColor: "#219ebc" }}
+          options={{ headerTintColor: "#219ebc", title: "Adicionar tarefa" }}
         />
         <Stack.Screen
           name="DetailsTask"
           component={DetailsTask}
-          options={{ headerTintColor: "#219ebc" }}
+          options={{ headerTintColor: "#219ebc", title: "Detalhes da tarefa" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

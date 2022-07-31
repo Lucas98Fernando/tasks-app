@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { database } from "../../config/firebase";
 import {
@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore/lite";
 import { FontAwesome } from "@expo/vector-icons";
 import styles from "./styles";
-import { NavigationProp } from "@react-navigation/native";
+import { NavigationProp, useFocusEffect } from "@react-navigation/native";
 
 interface Props {
   navigation: NavigationProp<any, any>;
@@ -19,9 +19,11 @@ interface Props {
 export function Task({ navigation }: Props) {
   const [tasks, setTasks] = useState<DocumentData[]>([]);
 
-  useEffect(() => {
-    getTasks();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getTasks();
+    }, [navigation])
+  );
 
   async function getTasks() {
     const tasksCollection = collection(database, "tasks");
@@ -37,7 +39,12 @@ export function Task({ navigation }: Props) {
   }
 
   async function handleDeleteTask(id: string) {
-    await deleteDoc(doc(database, "tasks", id));
+    try {
+      await deleteDoc(doc(database, "tasks", id));
+      getTasks();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -61,7 +68,7 @@ export function Task({ navigation }: Props) {
               <Text
                 style={styles.description}
                 onPress={() =>
-                  navigation.navigate("Details", {
+                  navigation.navigate("DetailsTask", {
                     id: task.item.id,
                     description: task.item.description,
                   })
